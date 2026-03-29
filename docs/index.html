@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StackPop — Push tasks. Pop when done.</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: rgba(255,255,255,0.06);
+      --text: #e4e4e7;
+      --muted: #71717a;
+      --accent: #818cf8;
+      --accent-glow: rgba(129,140,248,0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      background: radial-gradient(ellipse at 50% 0%, var(--accent-glow) 0%, transparent 60%);
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero .tagline {
+      font-size: 1.25rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .hero .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 2rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .hero .cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 30px var(--accent-glow);
+      text-decoration: none;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .feature-card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .feature-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    .section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .section .subtitle {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .screenshot-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    .screenshot-item img {
+      width: 100%;
+      display: block;
+    }
+    .screenshot-item .caption {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .screenshot-item .caption h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .screenshot-item .caption p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .screenshot-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .screenshot-pair { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.5rem; }
+    }
+
+    .install {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+    .install h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .install ol {
+      list-style: none;
+      counter-reset: steps;
+    }
+    .install ol li {
+      counter-increment: steps;
+      padding: 1rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+    .install ol li::before {
+      content: counter(steps);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-right: 0.75rem;
+    }
+    code {
+      background: rgba(255,255,255,0.06);
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.25rem;
+      font-size: 0.85em;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1><span>Stack</span>Pop</h1>
+    <p class="tagline">Push tasks. Pop when done.</p>
+    <p style="color: var(--muted); max-width: 600px; margin: 0 auto 2rem; font-size: 0.95rem;">
+      A local-first, AI-powered task management app for macOS. Beautiful UI, Claude-powered analysis, and full privacy — everything runs on your machine.
+    </p>
+    <a href="https://github.com/ilangayda/stackpop-releases/releases" class="cta">
+      ↓ Download for macOS
+    </a>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <h3><span class="feature-icon">🧠</span> AI-Powered Analysis</h3>
+      <p>Claude analyzes every task — suggests actions, predicts outcomes, and drafts recommended responses. Refine with an interactive chat.</p>
+    </div>
+    <div class="feature-card">
+      <h3><span class="feature-icon">🔒</span> 100% Local & Private</h3>
+      <p>Runs entirely on your Mac via Docker. Your data never leaves your machine. AI calls go directly to Anthropic — no middleman.</p>
+    </div>
+    <div class="feature-card">
+      <h3><span class="feature-icon">⚡</span> Smart Task Creation</h3>
+      <p>Paste raw text — emails, Slack messages, notes — and AI parses it into structured tasks with subtasks, priorities, and due dates.</p>
+    </div>
+    <div class="feature-card">
+      <h3><span class="feature-icon">🎯</span> Custom AI Skills</h3>
+      <p>Train the AI with your own skill definitions and datasets. Build domain-specific task handling tailored to your workflow.</p>
+    </div>
+    <div class="feature-card">
+      <h3><span class="feature-icon">🖥️</span> Native macOS App</h3>
+      <p>Menu bar integration, notifications, startup launch, and Quick Actions. Create tasks from anywhere on your Mac.</p>
+    </div>
+    <div class="feature-card">
+      <h3><span class="feature-icon">💾</span> Backup & Restore</h3>
+      <p>Scheduled and manual backups with one-click restore. Export archives for safekeeping. Separate data and skills backups.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>See it in action</h2>
+    <p class="subtitle">A modern, glassmorphic UI built for focus and clarity.</p>
+
+    <div class="screenshot-grid">
+      <div class="screenshot-pair">
+        <div class="screenshot-item">
+          <img src="screenshots/01-dashboard.png" alt="Dashboard" loading="lazy">
+          <div class="caption">
+            <h3>Dashboard</h3>
+            <p>At-a-glance view of your task landscape — priorities, statuses, and trends.</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/01b-dashboard-charts.png" alt="Dashboard Charts" loading="lazy">
+          <div class="caption">
+            <h3>Analytics</h3>
+            <p>Visual breakdowns of task distribution, completion rates, and workload.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-item">
+        <img src="screenshots/02-task-list.png" alt="Task List" loading="lazy">
+        <div class="caption">
+          <h3>Task List</h3>
+          <p>All your tasks with priorities, contacts, due dates, and AI status indicators. Multi-select for batch operations.</p>
+        </div>
+      </div>
+
+      <div class="screenshot-pair">
+        <div class="screenshot-item">
+          <img src="screenshots/03-task-detail.png" alt="Task Detail" loading="lazy">
+          <div class="caption">
+            <h3>Task Detail & AI Analysis</h3>
+            <p>AI-generated actions, expected outcomes, and activity tracking for every task.</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/03b-task-recommended.png" alt="Recommended Output" loading="lazy">
+          <div class="caption">
+            <h3>Recommended Output</h3>
+            <p>AI drafts email responses, decision plans, and action items — refine with chat.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-item">
+        <img src="screenshots/04-ai-chat.png" alt="AI Chat" loading="lazy">
+        <div class="caption">
+          <h3>AI Assistant</h3>
+          <p>Context-aware chat that knows your tasks, contacts, and priorities. Ask anything.</p>
+        </div>
+      </div>
+
+      <div class="screenshot-item">
+        <img src="screenshots/05-skill-editor.png" alt="Skill Editor" loading="lazy">
+        <div class="caption">
+          <h3>Skill Editor</h3>
+          <p>Build and refine AI skills with a live editor and chat assistant. Diff view, implement, and revert changes.</p>
+        </div>
+      </div>
+
+      <div class="screenshot-pair">
+        <div class="screenshot-item">
+          <img src="screenshots/06-backup-restore.png" alt="Backup & Restore" loading="lazy">
+          <div class="caption">
+            <h3>Backup & Restore</h3>
+            <p>Scheduled backups, manual snapshots, and file-based restore. Never lose your data.</p>
+          </div>
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/07-settings.png" alt="Settings" loading="lazy">
+          <div class="caption">
+            <h3>Settings</h3>
+            <p>AI configuration, default preferences, backup schedules, and system info.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-item" style="max-width: 400px;">
+        <img src="screenshots/08-menu-bar.png" alt="Menu Bar" loading="lazy">
+        <div class="caption">
+          <h3>Menu Bar</h3>
+          <p>Quick access from the macOS menu bar — open the app, check status, or uninstall.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="install">
+    <h2>Installation</h2>
+    <ol>
+      <li>Download the DMG for your Mac from <a href="https://github.com/ilangayda/stackpop-releases/releases">Releases</a> — <strong>arm64</strong> for Apple Silicon (M1–M4), <strong>x64</strong> for Intel.</li>
+      <li>Open the DMG and drag <strong>StackPop</strong> to your Applications folder.</li>
+      <li>Open Terminal and run: <code>xattr -cr /Applications/StackPop.app</code></li>
+      <li>Launch StackPop from Applications. It will set up Docker containers automatically.</li>
+      <li>On first launch, you'll be guided through an onboarding flow to configure integrations.</li>
+    </ol>
+    <p style="margin-top: 1.5rem; color: var(--muted); font-size: 0.85rem;">
+      Requires macOS 12+ and a Docker runtime (Docker Desktop or Colima). StackPop will help you install one if needed.
+    </p>
+  </div>
+
+  <footer>
+    StackPop &mdash; built with React, Node.js, PostgreSQL, Electron, and Claude.
+  </footer>
+
+</body>
+</html>
