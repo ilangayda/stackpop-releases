@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StackPop — Walkthrough</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/black.min.css">
+  <style>
+    :root {
+      --r-background-color: #0a0a0f;
+      --r-main-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --r-heading-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --r-main-color: #e4e4e7;
+      --r-heading-color: #fff;
+      --r-link-color: #818cf8;
+    }
+    .reveal { font-size: 28px; }
+    .reveal h1 { font-size: 3em; letter-spacing: -0.03em; }
+    .reveal h2 { font-size: 1.8em; letter-spacing: -0.02em; margin-bottom: 0.5em; }
+    .reveal h3 { font-size: 1.2em; color: #818cf8; margin-bottom: 0.3em; }
+    .reveal p { color: #a1a1aa; }
+    .reveal .accent { color: #818cf8; }
+    .reveal .muted { color: #71717a; font-size: 0.7em; }
+    .reveal img.screenshot {
+      max-height: 55vh;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .reveal img.screenshot-sm {
+      max-height: 45vh;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .reveal .side-by-side {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .reveal .side-by-side img {
+      max-height: 45vh;
+      max-width: 48%;
+    }
+    .reveal .pill {
+      display: inline-block;
+      padding: 0.2em 0.8em;
+      border-radius: 2em;
+      font-size: 0.65em;
+      border: 1px solid rgba(129,140,248,0.3);
+      background: rgba(129,140,248,0.1);
+      color: #818cf8;
+      margin: 0 0.2em;
+    }
+    .reveal .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .reveal .feature-grid div {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 0.75rem;
+      padding: 1rem;
+    }
+    .reveal .feature-grid h4 {
+      font-size: 0.85em;
+      margin: 0 0 0.3em;
+      color: #fff;
+    }
+    .reveal .feature-grid p {
+      font-size: 0.65em;
+      margin: 0;
+      line-height: 1.4;
+    }
+    .reveal code {
+      background: rgba(255,255,255,0.08);
+      padding: 0.1em 0.4em;
+      border-radius: 0.25em;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Title -->
+      <section>
+        <h1><span class="accent">Stack</span>Pop</h1>
+        <p style="font-size: 1.3em; color: #a1a1aa;">Push tasks. Pop when done.</p>
+        <br>
+        <p style="font-size: 0.75em; color: #71717a;">
+          Local-first &bull; AI-powered &bull; Privacy-first &bull; macOS native
+        </p>
+        <br>
+        <p class="muted">Use arrow keys or swipe to navigate</p>
+      </section>
+
+      <!-- What is it -->
+      <section>
+        <h2>What is StackPop?</h2>
+        <p style="max-width: 700px; margin: 0 auto; font-size: 0.9em; line-height: 1.6;">
+          A task management app that runs <strong style="color:#fff;">entirely on your Mac</strong>.
+          Paste raw text — emails, Slack messages, notes — and AI turns it into
+          structured tasks with priorities, subtasks, and recommended actions.
+        </p>
+        <br>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <span class="pill">React</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">Docker</span>
+          <span class="pill">Electron</span>
+          <span class="pill">Claude AI</span>
+        </div>
+      </section>
+
+      <!-- Dashboard -->
+      <section>
+        <h3>Dashboard</h3>
+        <h2>Your task landscape at a glance</h2>
+        <div class="side-by-side">
+          <img src="../screenshots/01-dashboard.png" class="screenshot-sm" alt="Dashboard">
+          <img src="../screenshots/01b-dashboard-charts.png" class="screenshot-sm" alt="Dashboard Charts">
+        </div>
+      </section>
+
+      <!-- Task List -->
+      <section>
+        <h3>Task Management</h3>
+        <h2>Priorities, contacts, and smart badges</h2>
+        <img src="../screenshots/02-task-list.png" class="screenshot" alt="Task List">
+      </section>
+
+      <!-- AI Analysis -->
+      <section>
+        <h3>AI-Powered Analysis</h3>
+        <h2>Every task gets intelligent insights</h2>
+        <div class="side-by-side">
+          <img src="../screenshots/03-task-detail.png" class="screenshot-sm" alt="Task Detail">
+          <img src="../screenshots/03b-task-recommended.png" class="screenshot-sm" alt="Recommended Output">
+        </div>
+        <p style="font-size: 0.7em; margin-top: 1rem;">
+          Actions &bull; Expected outcomes &bull; Drafted responses &bull; Refinement chat
+        </p>
+      </section>
+
+      <!-- AI Chat -->
+      <section>
+        <h3>AI Assistant</h3>
+        <h2>"What should I focus on today?"</h2>
+        <img src="../screenshots/04-ai-chat.png" class="screenshot" alt="AI Chat">
+        <p style="font-size: 0.7em; margin-top: 1rem;">
+          Context-aware — knows your tasks, contacts, priorities, and due dates.
+        </p>
+      </section>
+
+      <!-- Skill Editor -->
+      <section>
+        <h3>Custom Skills</h3>
+        <h2>Train the AI for your domain</h2>
+        <img src="../screenshots/05-skill-editor.png" class="screenshot" alt="Skill Editor">
+        <p style="font-size: 0.7em; margin-top: 1rem;">
+          Live editor &bull; Chat-driven changes &bull; Diff view &bull; Multiple skills
+        </p>
+      </section>
+
+      <!-- Features grid -->
+      <section>
+        <h2>Built for real work</h2>
+        <div class="feature-grid">
+          <div>
+            <h4>🔒 100% Private</h4>
+            <p>Everything runs locally. Data never leaves your machine.</p>
+          </div>
+          <div>
+            <h4>⚡ Smart Create</h4>
+            <p>Paste raw text — AI parses it into structured tasks.</p>
+          </div>
+          <div>
+            <h4>🖥️ Native macOS</h4>
+            <p>Menu bar, notifications, Quick Actions, startup launch.</p>
+          </div>
+          <div>
+            <h4>💾 Backup & Restore</h4>
+            <p>Scheduled backups, export archives, one-click restore.</p>
+          </div>
+          <div>
+            <h4>🔄 Duplicate Detection</h4>
+            <p>Hash-based dedup prevents creating the same task twice.</p>
+          </div>
+          <div>
+            <h4>🎯 Multi-Skill Support</h4>
+            <p>Create domain-specific AI behaviors with custom datasets.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Backup & Settings -->
+      <section>
+        <h3>Operations</h3>
+        <h2>Backups, settings, and menu bar</h2>
+        <div class="side-by-side">
+          <img src="../screenshots/06-backup-restore.png" class="screenshot-sm" alt="Backup & Restore">
+          <img src="../screenshots/07-settings.png" class="screenshot-sm" alt="Settings">
+        </div>
+      </section>
+
+      <!-- Menu bar -->
+      <section>
+        <h3>macOS Integration</h3>
+        <h2>Always a click away</h2>
+        <img src="../screenshots/08-menu-bar.png" style="max-height: 40vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);" alt="Menu Bar">
+        <p style="font-size: 0.7em; margin-top: 1.5rem;">
+          Menu bar &bull; Quick Actions &bull; Notifications &bull; Start at login
+        </p>
+      </section>
+
+      <!-- Install -->
+      <section>
+        <h2>Get started in 60 seconds</h2>
+        <div style="text-align: left; max-width: 600px; margin: 0 auto; font-size: 0.85em; line-height: 2;">
+          <p>1. Download the DMG from <a href="https://github.com/ilangayda/stackpop-releases/releases" style="color: #818cf8;">Releases</a></p>
+          <p>2. Drag StackPop to Applications</p>
+          <p>3. Run <code>xattr -cr /Applications/StackPop.app</code></p>
+          <p>4. Launch and follow the onboarding guide</p>
+        </div>
+        <br>
+        <a href="https://github.com/ilangayda/stackpop-releases/releases"
+           style="display: inline-block; padding: 0.6em 1.8em; background: #818cf8; color: #fff; border-radius: 0.6em; font-weight: 600; text-decoration: none;">
+          ↓ Download for macOS
+        </a>
+        <br><br>
+        <p class="muted">Requires macOS 12+ &bull; Docker Desktop or Colima</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'fade',
+      transitionSpeed: 'fast',
+      controlsTutorial: false,
+      progress: true,
+      center: true,
+    });
+  </script>
+</body>
+</html>
